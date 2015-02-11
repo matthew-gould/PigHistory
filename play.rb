@@ -51,6 +51,5 @@ game.losers.each do |x|
   past.save!
  end
 
-
-
 puts "#{game.winner} wins!"
+puts "#{game.winner} your lifetime record is #{past.wins} wins and #{past.losses} losses!"
