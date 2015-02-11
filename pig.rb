@@ -1,4 +1,5 @@
 require_relative './player'
+require 'pry'
 
 class Pig
   def initialize
@@ -10,10 +11,12 @@ class Pig
     puts "Getting player names. Type q when done."
     loop do
       print "Player #{@players.count + 1}, what is your name? > "
-      input = gets.chomp
-        unless past = Leaderboard.where(name: "#{input}").first!
-          past = Leaderboard.create(name: "#{input}", wins: 0, losses: 0)
-        end
+      input = gets.chomp.downcase.capitalize
+        past = Leaderboard.where(name: input).first
+          if past 
+          else
+            past = Leaderboard.create(name: input, wins: 0, losses: 0)
+          end
       if input == "q" || input == ""
         return
       else
