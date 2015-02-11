@@ -1,22 +1,23 @@
 require_relative './player'
 require 'pry'
 
+
+
 class Pig
+
+  attr_reader :players, :losers
+  
   def initialize
     @players   = []
-    @max_score = 100
+    @max_score = 25
   end
 
+  
   def get_players
     puts "Getting player names. Type q when done."
     loop do
       print "Player #{@players.count + 1}, what is your name? > "
       input = gets.chomp.downcase.capitalize
-        past = Leaderboard.where(name: input).first
-          if past 
-          else
-            past = Leaderboard.create(name: input, wins: 0, losses: 0)
-          end
       if input == "q" || input == ""
         return
       else
@@ -24,8 +25,6 @@ class Pig
       end
     end
   end
-
-
 
   def play_round
     @players.each do |p|
@@ -37,15 +36,27 @@ class Pig
   end
 
   def remove_losing_players!
+    @losers = []
     if @players.any? { |p| p.score > @max_score }
       max_score = @players.map { |p| p.score }.max
+        if @players.each do |p|
+          p.score < @max_score
+          @losers << p
+        end
+      end
       @players = @players.select { |p| p.score == max_score }
     end
   end
 
   def winner
     if @players.length == 1
-      @players.first
+      @players.first.name
+    end
+  end
+
+  def losers
+    if winner
+      @losers
     end
   end
 

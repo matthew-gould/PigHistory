@@ -6,8 +6,4 @@ class Player
     @name  = name
     @score = 0
   end
-
-  def start_history
-    
-  end
 end

@@ -26,17 +26,31 @@ game_classes = {
 }
 game_class = select_from game_classes
 
-# past = Pighis.where(name: name).first!
-#   if past
-#     puts "You've been here before #{name}!"
-#     puts "Your piggie history is #{wins} and #{losses}!"
-#   else past = Pighis.create(name: name, wins: 0, losses: 0)
-#   end
-
 puts "Playing a game of #{game_class}"
 game = game_class.new
-
 game.get_players
 
+
+game.players.each do |x|
+  past = Leaderboard.where(name: x.name).first
+    if past 
+    else
+      past = Leaderboard.create(name: x.name, wins: 0, losses: 0)
+    end
+  end
+
 game.play_round until game.winner
+past = Leaderboard.where(name: game.winner).first
+if game.winner
+ past.wins += 1
+ past.save!
+end
+game.losers.each do |x|
+  past = Leaderboard.where(name: x.name).first
+  past.losses += 1
+  past.save!
+ end
+
+
+
 puts "#{game.winner} wins!"
