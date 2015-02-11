@@ -1,5 +1,5 @@
 require './db/setup'
-require './lib/pighis'
+require './lib/leaderboard'
 require_relative './pig'
 require_relative './hog'
 

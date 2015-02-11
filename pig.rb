@@ -11,9 +11,9 @@ class Pig
     loop do
       print "Player #{@players.count + 1}, what is your name? > "
       input = gets.chomp
-       unless past = Pighis.where(name: input).first!
-        past = Pighis.create(name: name, wins: 0, losses: 0)
-      end
+        unless past = Leaderboard.where(name: "#{input}").first!
+          past = Leaderboard.create(name: "#{input}", wins: 0, losses: 0)
+        end
       if input == "q" || input == ""
         return
       else
