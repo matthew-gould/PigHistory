@@ -39,9 +39,9 @@ class Pig
     @losers = []
     if @players.any? { |p| p.score > @max_score }
       max_score = @players.map { |p| p.score }.max
-        if @players.each do |p|
-          p.score < @max_score
-          @losers << p
+        @players.each do |p|
+          if p.score < @max_score
+             @losers << p
         end
       end
       @players = @players.select { |p| p.score == max_score }

@@ -44,6 +44,8 @@ past = Leaderboard.where(name: game.winner).first
 if game.winner
  past.wins += 1
  past.save!
+ puts "#{game.winner} wins!"
+ puts "#{game.winner} your lifetime record is #{past.wins} wins and #{past.losses} losses!"
 end
 game.losers.each do |x|
   past = Leaderboard.where(name: x.name).first
@@ -51,5 +53,3 @@ game.losers.each do |x|
   past.save!
  end
 
-puts "#{game.winner} wins!"
-puts "#{game.winner} your lifetime record is #{past.wins} wins and #{past.losses} losses!"
